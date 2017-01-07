@@ -2,11 +2,13 @@ import pygame
 
 from EventHandler import EventHandler
 from StageState import StageState
+from Logger import Logger
 
 
-class Stage(EventHandler):
+class Stage(EventHandler, Logger):
     def __init__(self):
         self.state = StageState.INIT
+        self.actors = []
 
     def update(self):
         """Ici se passe toute la logique de la scène"""
@@ -30,9 +32,20 @@ class Stage(EventHandler):
 
     def run(self):
         # Called each tick when StageState is RUN
-        for event in pygame.event.get():
-            self.handle(event)
+       pass
 
     def pause(self):
         # Called each tick when StageState is PAUSE
         pass
+
+    def events_loop(self):
+        events = pygame.event.get()
+
+        for index, event in enumerate(events):
+            if not self.handle(event):
+                for actor in sorted(self.actors, key= lambda actor: actor.handle_event, reverse=True):
+                    if not actor.handle_event:
+                        break
+                    if actor.handle(event):
+                        break
+

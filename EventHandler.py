@@ -4,17 +4,19 @@ import pygame
 class EventHandler():
     def handle(self, event):
         if event.type == pygame.KEYDOWN:
-            self.handle_keydown(event.unicode, event.key, event.mod)
+            return self.handle_keydown(event.unicode, event.key, event.mod)
         elif event.type == pygame.KEYUP:
-            self.handle_keyup(event.key, event.mod)
+            return self.handle_keyup(event.key, event.mod)
         elif event.type == pygame.MOUSEMOTION:
-            self.handle_mouse(event.pos, event.rel, event.buttons)
+            return self.handle_mouse(event.pos, event.rel, event.buttons)
+        else:
+            return False
 
     def handle_keydown(self, unicode, key, mod):
-        pass
+        return False
 
     def handle_keyup(self, key, mod):
-        pass
+        return False
 
     def handle_mouse(self, pos, rel, buttons):
-        pass
+        False
