@@ -1,18 +1,14 @@
 import pygame
-
-import Game
+import api.Game
+from api.Logger import Logger, LOG_LEVEL
 from test.StageInit import StageInit
-from Logger import Logger, LOG_LEVEL
 
 
-class GameTest(Game.Game, Logger):
+class GameTest(api.Game.Game, Logger):
     def __init__(self):
-        super().__init__()
+        super().__init__(640, 480, LOG_LEVEL.DEBUG)
 
-        pygame.init()
         # On définit le niveau de LOG de l'application
-        self.set_log_level(LOG_LEVEL.DEBUG)
-
-        self.stage_manager.push(StageInit())
+        self.stage_manager.push(StageInit(self.screen))
 
         self.start()

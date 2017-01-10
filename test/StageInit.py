@@ -1,13 +1,13 @@
-import Stage
-from StageManager import StageManager
-from StageState import StageState
+from api.StageManager import StageManager
+from api.StageState import StageState
+
+from api import Stage
 from test.StageMenu import StageMenu
-from Logger import LOG_LEVEL
 
 
 class StageInit(Stage.Stage):
     def init(self):
-        StageManager().push(StageMenu())
+        StageManager().push(StageMenu(self.screen))
         self.state = StageState.QUIT
 
         self.warning("Ton programme ne fait actuellement rien...")
